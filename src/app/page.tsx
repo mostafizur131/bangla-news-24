@@ -1,17 +1,25 @@
+import MainNews from "@/components/MainNews";
 import Marquee from "@/components/Marquee";
+import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const res = await fetch("https://news-api-v2.vercel.app/api/news/sections");
+  const data = await res.json();
+  const sections = data.data;
+  const mainNews = sections[0].articles;
+
   return (
     <div>
       <Marquee />
-      <p>
-        শতাব্দীর পর শতাব্দী ধরে বিশ্বের অনেক দেশই বন্ধুত্বের নিদর্শন হিসেবে অন্য
-        দেশকে বিরল বন্যপ্রাণী উপহার দিলেও বর্তমানে এটি আর খুব বেশি হয় না, কারণ
-        এখন বেশিরভাগ বিরল প্রাণী চিড়িয়াখানাতেই প্রজননের মাধ্যমে জন্মায় এবং
-        চিড়িয়াখানাগুলোর মধ্যেই আদান–প্রদান হয়। কিন্তু পান্ডার ক্ষেত্রে বিষয়টি
-        একদমই আলাদা। কারণ চীন ছাড়া আর কেউ কোনো জায়ান্ট পান্ডার মালিক হতে পারে
-        না।
-      </p>
+
+      <div className="grid grid-cols-3 max-w-7xl mx-auto gap-4 mt-4">
+        {/* Main News Section */}
+        <div className="col-span-2">
+          <MainNews news={mainNews} />
+        </div>
+        {/* Most Read Section */}
+        <div className="col-span-1"></div>
+      </div>
     </div>
   );
 }
