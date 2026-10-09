@@ -1,6 +1,9 @@
+import Marquee from "@/components/Marquee";
+
 export default function Home() {
   return (
     <div>
+      <Marquee />
       <p>
         শতাব্দীর পর শতাব্দী ধরে বিশ্বের অনেক দেশই বন্ধুত্বের নিদর্শন হিসেবে অন্য
         দেশকে বিরল বন্যপ্রাণী উপহার দিলেও বর্তমানে এটি আর খুব বেশি হয় না, কারণ
