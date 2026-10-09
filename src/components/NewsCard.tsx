@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 interface NewsCardProps {
   id: string;
   title: string;
@@ -10,34 +11,40 @@ interface NewsCardProps {
 }
 
 const NewsCard = ({ news }: { news: NewsCardProps }) => {
-  const date = new Date(news.lastPublished).toLocaleDateString("bn-Bd", {
-    dateStyle: "full",
+  const date = new Date(news.lastPublished).toLocaleDateString("bn-BD", {
+    dateStyle: "long",
   });
 
   return (
-    <div>
-      <div className="card bg-base-100 shadow-sm">
-        <figure>
-          <Image
-            width={400}
-            height={200}
-            src={news.imageUrl}
-            alt={news.imageAlt}
-          />
-        </figure>
-        <div className="card-body">
-          <h4 className="text-md font-bold text-red-700">{news.category}</h4>
-          <h2 className="card-title">{news.title}</h2>
-          <p>
-            {news.description?.length > 100
-              ? `${news.description.substring(0, 100)}...`
-              : news.description}
-          </p>
+    <article className="card h-full w-full min-w-0 overflow-hidden rounded-lg bg-base-100 shadow-sm transition-shadow duration-300 hover:shadow-md">
+      {/* News Image */}
+      <figure className="relative aspect-video w-full overflow-hidden">
+        <Image
+          src={news.imageUrl}
+          alt={news.imageAlt}
+          fill
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+          className="object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </figure>
 
-          <p className="text-sm text-neutral-500">{date}</p>
-        </div>
+      {/* News Content */}
+      <div className="card-body gap-2 p-3 sm:gap-3 sm:p-4 lg:p-5">
+        <h4 className="text-xs font-bold uppercase text-red-700 sm:text-sm">
+          {news.category}
+        </h4>
+
+        <h2 className="card-title line-clamp-3 text-base leading-snug sm:text-lg">
+          {news.title}
+        </h2>
+
+        <p className="line-clamp-3 text-sm leading-relaxed text-base-content/80 sm:text-base">
+          {news.description}
+        </p>
+
+        <p className="mt-1 text-xs text-neutral-500 sm:text-sm">{date}</p>
       </div>
-    </div>
+    </article>
   );
 };
 

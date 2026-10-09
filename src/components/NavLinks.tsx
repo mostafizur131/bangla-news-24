@@ -6,7 +6,6 @@ interface INavs {
   topicId: string;
   url: string;
 }
-import React from "react";
 
 const NavLinks = async () => {
   const res = await fetch("https://news-api-v2.vercel.app/api/categories");
@@ -21,7 +20,7 @@ const NavLinks = async () => {
       {navs.map((nav, id) => (
         <Link
           className="text-sm text-neutral-700 hover:text-red-700"
-          href={nav.slug}
+          href={`/category/${nav.slug}`}
           key={id}
         >
           {nav.title}
