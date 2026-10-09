@@ -1,4 +1,4 @@
-import Image from "next/image";
+import NewsCard from "./NewsCard";
 interface MainNewsProps {
   id: string;
   title: string;
@@ -11,30 +11,10 @@ interface MainNewsProps {
 
 const MainNews = ({ news }: { news: MainNewsProps[] }) => {
   const [firstNews, ...others] = news;
-  const date = new Date(firstNews.lastPublished).toLocaleDateString("bn-Bd", {
-    dateStyle: "full",
-  });
+
   return (
     <div className="flex gap-4">
-      <div className="card bg-base-100 w-96 shadow-sm">
-        <figure>
-          <Image
-            width={400}
-            height={200}
-            src={firstNews.imageUrl}
-            alt={firstNews.imageAlt}
-          />
-        </figure>
-        <div className="card-body">
-          <h4 className="text-md font-bold text-red-700">
-            {firstNews.category}
-          </h4>
-          <h2 className="card-title">{firstNews.title}</h2>
-          <p>{firstNews.description}</p>
-
-          <p className="text-sm text-neutral-500">{date}</p>
-        </div>
-      </div>
+      <NewsCard news={firstNews} />
       <div className="flex flex-col gap-4 max-h-full">
         {others.slice(1, 5).map((otherNews) => {
           return (
