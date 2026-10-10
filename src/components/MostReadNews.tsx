@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface MostReadNewsItem {
   id: string;
   title: string;
@@ -34,19 +36,21 @@ const MostReadNews = async () => {
       {mostReadNews.length > 0 ? (
         <ol className="divide-y divide-base-200">
           {mostReadNews.map((news, index) => (
-            <li key={news.id}>
-              <article className="group flex gap-3 px-4 py-4 transition-colors duration-200 hover:bg-base-200/50 sm:gap-4 sm:px-5">
-                <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-extrabold sm:h-9 sm:w-9 bg-red-50 text-red-600  `}
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+            <Link href={`/news/${news.id}`} key={news.id}>
+              <li>
+                <article className="group flex gap-3 px-4 py-4 transition-colors duration-200 hover:bg-base-200/50 sm:gap-4 sm:px-5">
+                  <span
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-extrabold sm:h-9 sm:w-9 bg-red-50 text-red-600  `}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                <h3 className="min-w-0 flex-1 text-sm font-semibold leading-6 text-base-content transition-colors group-hover:text-red-600 sm:text-base">
-                  {news.title}
-                </h3>
-              </article>
-            </li>
+                  <h3 className="min-w-0 flex-1 text-sm font-semibold leading-6 text-base-content transition-colors group-hover:text-red-600 sm:text-base">
+                    {news.title}
+                  </h3>
+                </article>
+              </li>
+            </Link>
           ))}
         </ol>
       ) : (
