@@ -17,7 +17,10 @@ const NewsCard = ({ news }: { news: NewsCardProps }) => {
   });
 
   return (
-    <Link href={`/news/${news.id}`}>
+    <Link
+      href={`/news/${news.id}`}
+      aria-label={`সম্পূর্ণ সংবাদ পড়ুন: ${news.title}`}
+    >
       <article className="card h-full w-full min-w-0 overflow-hidden rounded-lg bg-base-100 shadow-sm transition-shadow duration-300 hover:shadow-md">
         {/* News Image */}
         <figure className="relative aspect-video w-full overflow-hidden">

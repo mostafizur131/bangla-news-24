@@ -22,9 +22,9 @@ const MainNews = ({ news }: { news: MainNewsProps[] }) => {
     <div className="flex flex-col gap-4 lg:flex-row">
       {/* Featured News */}
       <div className="min-w-0 w-full lg:w-3/5">
-        <Link href={`/news/${firstNews.id}`}>
-          <NewsCard news={firstNews} />
-        </Link>
+        {/* <Link href={`/news/${firstNews.id}`}> */}
+        <NewsCard news={firstNews} />
+        {/* </Link> */}
       </div>
       {/* Other Top News */}
       <div className="flex min-w-0 w-full flex-col gap-3 lg:w-2/5">

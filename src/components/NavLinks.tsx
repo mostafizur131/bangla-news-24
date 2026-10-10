@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 interface INavs {
   scrapable: boolean;
   slug: string;
@@ -7,26 +11,44 @@ interface INavs {
   url: string;
 }
 
-const NavLinks = async () => {
-  const res = await fetch("https://news-api-v2.vercel.app/api/categories");
-  const data = await res.json();
-  const navs: INavs[] = data.data.filter((nav: INavs) => nav.scrapable);
+const NavLinks = ({ navs }: { navs: INavs[] }) => {
+  const pathname = usePathname();
+
+  const getLinkClass = (href: string) => {
+    const isActive = href === "/" ? pathname === "/" : pathname === href;
+
+    return `whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+      isActive
+        ? "bg-red-700 text-white"
+        : "text-neutral-700 hover:bg-red-50 hover:text-red-700"
+    }`;
+  };
 
   return (
-    <div className="flex justify-center gap-5 mb-2">
-      <Link className="text-sm text-neutral-700 hover:text-red-700" href={"/"}>
+    <nav className="mb-2 flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-5">
+      <Link
+        href="/"
+        className={getLinkClass("/")}
+        aria-current={pathname === "/" ? "page" : undefined}
+      >
         হোম
       </Link>
-      {navs.map((nav, id) => (
-        <Link
-          className="text-sm text-neutral-700 hover:text-red-700"
-          href={`/category/${nav.slug}`}
-          key={id}
-        >
-          {nav.title}
-        </Link>
-      ))}
-    </div>
+
+      {navs.map((nav) => {
+        const href = `/category/${nav.slug}`;
+
+        return (
+          <Link
+            href={href}
+            key={nav.topicId}
+            className={getLinkClass(href)}
+            aria-current={pathname === href ? "page" : undefined}
+          >
+            {nav.title}
+          </Link>
+        );
+      })}
+    </nav>
   );
 };
 
