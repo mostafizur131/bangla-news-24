@@ -1,0 +1,115 @@
+import Link from "next/link";
+
+export default function SignInPage() {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-[#f5f5f5] px-4 py-8 sm:px-8 lg:px-12">
+      <div className="grid w-full max-w-6xl overflow-hidden rounded-2xl bg-white shadow-xl lg:min-h-150 lg:grid-cols-2">
+        {/* Left Panel — Desktop */}
+        <section className="hidden flex-col justify-between bg-[#c9000b] p-10 text-white lg:flex xl:p-16">
+          <Link href="/" className="text-3xl font-extrabold">
+            বাংলা সংবাদ
+          </Link>
+
+          <div className="max-w-md">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-white/75">
+              আবারও স্বাগতম
+            </p>
+            <h2 className="text-4xl font-bold leading-tight xl:text-5xl">
+              আপনার সংবাদ জগতে ফিরে আসুন।
+            </h2>
+            <p className="mt-5 text-base leading-8 text-white/85">
+              সাইন ইন করুন এবং আপনার পছন্দের সংবাদ পড়া চালিয়ে যান।
+            </p>
+          </div>
+
+          <p className="text-sm text-white/70">
+            © {new Date().getFullYear()} বাংলা সংবাদ
+          </p>
+        </section>
+
+        {/* Right Panel — Form */}
+        <section className="flex items-center justify-center px-5 py-12 sm:px-10 lg:px-12 xl:px-16">
+          <div className="w-full max-w-lg">
+            <Link
+              href="/"
+              className="mb-8 inline-block text-xl font-extrabold text-red-600 lg:hidden"
+            >
+              বাংলা সংবাদ
+            </Link>
+
+            <h1 className="text-3xl font-bold text-neutral-900 sm:text-4xl">
+              সাইন ইন
+            </h1>
+            <p className="mt-3 text-sm leading-6 text-neutral-500 sm:text-base">
+              আপনার অ্যাকাউন্টে প্রবেশ করতে তথ্য দিন।
+            </p>
+
+            <form className="mt-8 space-y-5">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-2 block text-sm font-medium text-neutral-700"
+                >
+                  ইমেইল
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="আপনার ইমেইল লিখুন"
+                  required
+                  className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-base outline-none transition placeholder:text-neutral-400 focus:border-red-600 focus:ring-4 focus:ring-red-100"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="mb-2 block text-sm font-medium text-neutral-700"
+                >
+                  পাসওয়ার্ড
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  placeholder="আপনার পাসওয়ার্ড লিখুন"
+                  required
+                  className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-base outline-none transition placeholder:text-neutral-400 focus:border-red-600 focus:ring-4 focus:ring-red-100"
+                />
+              </div>
+
+              <div className="flex justify-end">
+                <Link
+                  href="/forgot-password"
+                  className="text-sm font-medium text-red-600 hover:underline"
+                >
+                  পাসওয়ার্ড ভুলে গেছেন?
+                </Link>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full rounded-lg bg-[#c9000b] px-5 py-3.5 text-base font-semibold text-white transition hover:bg-red-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-200"
+              >
+                সাইন ইন করুন
+              </button>
+            </form>
+
+            <p className="mt-7 text-center text-sm text-neutral-600 sm:text-base">
+              অ্যাকাউন্ট নেই?{" "}
+              <Link
+                href="/signup"
+                className="font-semibold text-red-600 hover:underline"
+              >
+                সাইন আপ করুন
+              </Link>
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
