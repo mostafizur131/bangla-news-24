@@ -1,13 +1,39 @@
+"use client";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function SignUpPage() {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const user = Object.fromEntries(formData.entries()) as {
+      name: string;
+      email: string;
+      image: string;
+      password: string;
+    };
+
+    const { data, error } = await authClient.signUp.email({
+      ...user,
+      callbackURL: "/",
+    });
+
+    if (data) {
+      toast.success(`${data.user.name} User Created Successfully`);
+    }
+    if (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f5f5f5] px-4 py-8 sm:px-8 lg:px-12">
       <div className="grid w-full max-w-6xl overflow-hidden rounded-2xl bg-white shadow-xl lg:min-h-162.5lg:grid-cols-2">
         {/* Left Panel — Desktop */}
         <section className="hidden flex-col justify-between bg-[#c9000b] p-10 text-white lg:flex xl:p-16">
           <Link href="/" className="text-3xl font-extrabold">
-            বাংলা সংবাদ
+            বাংলা নিউজ ২৪
           </Link>
 
           <div className="max-w-md">
@@ -23,7 +49,7 @@ export default function SignUpPage() {
           </div>
 
           <p className="text-sm text-white/70">
-            © {new Date().getFullYear()} বাংলা সংবাদ
+            © {new Date().getFullYear()} বাংলা নিউজ ২৪
           </p>
         </section>
 
@@ -44,7 +70,7 @@ export default function SignUpPage() {
               নতুন অ্যাকাউন্ট তৈরি করতে নিচের তথ্যগুলো দিন।
             </p>
 
-            <form className="mt-8 space-y-5">
+            <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div>
                 <label
                   htmlFor="name"
@@ -118,7 +144,7 @@ export default function SignUpPage() {
 
               <button
                 type="submit"
-                className="w-full rounded-lg bg-[#c9000b] px-5 py-3.5 text-base font-semibold text-white transition hover:bg-red-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-200"
+                className="w-full rounded-lg bg-[#c9000b] px-5 py-3.5 text-base font-semibold text-white transition hover:bg-red-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-200 cursor-pointer"
               >
                 সাইন আপ করুন
               </button>
