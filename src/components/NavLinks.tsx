@@ -25,7 +25,7 @@ const NavLinks = ({ navs }: { navs: INavs[] }) => {
   };
 
   return (
-    <nav className="mb-2 flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-5">
+    <nav className="mb-0 flex w-full items-center justify-start gap-2 overflow-x-auto whitespace-nowrap px-2 py-3 sm:justify-center sm:gap-5">
       <Link
         href="/"
         className={getLinkClass("/")}

@@ -1,6 +1,31 @@
+"use client";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function SignInPage() {
+  const handleSignIn = async (e: React.SubmitEvent<HTMLElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const user = Object.fromEntries(formData.entries()) as {
+      email: string;
+      password: string;
+    };
+
+    const { data, error } = await authClient.signIn.email({
+      ...user,
+      callbackURL: "/",
+    });
+
+    if (data) {
+      toast.success(`${data.user.name} User Created Successfully`);
+    }
+    if (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f5f5f5] px-4 py-8 sm:px-8 lg:px-12">
       <div className="grid w-full max-w-6xl overflow-hidden rounded-2xl bg-white shadow-xl lg:min-h-150 lg:grid-cols-2">
@@ -44,7 +69,7 @@ export default function SignInPage() {
               আপনার অ্যাকাউন্টে প্রবেশ করতে তথ্য দিন।
             </p>
 
-            <form className="mt-8 space-y-5">
+            <form onSubmit={handleSignIn} className="mt-8 space-y-5">
               <div>
                 <label
                   htmlFor="email"

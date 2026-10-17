@@ -1,6 +1,7 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
 
 export default function SignUpPage() {
@@ -22,6 +23,7 @@ export default function SignUpPage() {
 
     if (data) {
       toast.success(`${data.user.name} User Created Successfully`);
+      redirect("/");
     }
     if (error) {
       toast.error(error.message);

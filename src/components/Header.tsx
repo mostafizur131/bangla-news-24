@@ -1,6 +1,7 @@
 import Image from "next/image";
-
+import Link from "next/link";
 import NavLinksWrapper from "./NavLinksWrapper";
+import UserInfo from "./UserInfo";
 
 const Header = () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -9,45 +10,45 @@ const Header = () => {
 
   return (
     <header className="w-full border-t-4 border-gray-800 bg-white">
-      <div className="relative mx-auto flex min-h-24 max-w-7xl flex-col gap-3 px-4 py-4 sm:px-6 md:min-h-24 md:flex-row md:items-center md:justify-center md:gap-0">
-        {/* Logo + Date */}
-        <div className="flex items-center justify-center gap-2 md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
+      {/* Main Header */}
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-4 px-4 py-4 sm:px-6 md:grid-cols-[1fr_auto_1fr] md:gap-4 lg:px-8">
+        {/* Left Spacer */}
+        <div className="hidden md:block" />
+
+        {/* Center Logo + Date */}
+        <Link
+          href="/"
+          className="flex min-w-0 items-center justify-center gap-2"
+        >
           <Image
             src="/logo.webp"
             alt="Bangla News 24"
             width={50}
             height={50}
             priority
-            className="h-10 w-10 shrink-0 object-contain sm:h-11 sm:w-11"
+            className="h-10 w-10 shrink-0 object-contain sm:h-12 sm:w-12"
           />
 
           <div className="min-w-0">
-            <h2 className="whitespace-nowrap  text-xl font-bold text-red-700 sm:text-2xl">
+            <h1 className="whitespace-nowrap text-xl font-bold leading-tight text-red-700 sm:text-2xl">
               Bangla News 24
-            </h2>
-
-            <p className="text-xs text-neutral-500">{date}</p>
+            </h1>
+            <p className="mt-1 text-xs text-neutral-500">{date}</p>
           </div>
-        </div>
+        </Link>
 
-        {/* Authentication Buttons */}
-        <div className="flex items-center justify-end gap-3 md:absolute md:right-4 md:top-1/2 md:-translate-y-1/2">
-          <button
-            type="button"
-            className="hidden cursor-pointer text-sm font-medium text-neutral-700 transition hover:text-red-700 sm:inline-block"
-          >
-            সাইন ইন
-          </button>
-
-          <button
-            type="button"
-            className="cursor-pointer rounded-md bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-800"
-          >
-            সাইন আপ
-          </button>
+        {/* Right: Auth Buttons / User Avatar */}
+        <div className="flex items-center justify-center md:justify-end">
+          <UserInfo />
         </div>
       </div>
-      <NavLinksWrapper />
+
+      {/* Navigation */}
+      <div className="border-t border-neutral-100">
+        <div className="mx-auto w-full max-w-7xl px-2 sm:px-6 lg:px-8">
+          <NavLinksWrapper />
+        </div>
+      </div>
     </header>
   );
 };
